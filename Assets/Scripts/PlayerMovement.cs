@@ -8,15 +8,19 @@ public class PlayerMovement : MonoBehaviour
         AUTHORS: Truong Anthony - truo3110
         File Info: Unity Script made for player control, for Traceur Project 
     */
-    private string currentTrack = "Middle";
-    private string orientation = "North";
 
-    private float timer = 5;
-    private float grounded = 0;
+    private string currentTrack = "Middle";
+
+    private float jmp = -5;
+    private float trk = 0;
+    private float laneScale = 5;
+    private float cooldown = 5;
+    private float timer;
+    private float speed = 4;
 
     private void Start()
     {
-        transform.GetComponent<Rigidbody>().AddForce(transform.forward * 250f);
+        timer = cooldown;
     }
 
     void Update()
@@ -24,43 +28,66 @@ public class PlayerMovement : MonoBehaviour
         //For the capsule...
         transform.rotation = new Quaternion(0, 0, 0, 0);
 
-        //Jump !
-        if (grounded > 0)
-        {
-            grounded -= Time.deltaTime;
-        }
+        //Move !
+        transform.GetComponent<Rigidbody>().velocity = new Vector3(trk, jmp, speed);
 
-        if (Input.GetButtonDown("Jump") && grounded <= 0)
+        //Jump !
+        if (Input.GetButtonDown("Jump") && transform.position.y < 1.1f && jmp == -5)
         {
-            transform.GetComponent<Rigidbody>().AddForce(transform.up * 350f);
-            grounded = 2;
+            jmp = laneScale;
+            StartCoroutine(jump());
         }
 
         //Switching tracks
-        if (Input.GetButtonDown("SwitchLeft") && currentTrack != "Left")
+        if (Input.GetButtonDown("SwitchLeft") && currentTrack != "Left" && trk == 0)
         {
-            
             if (currentTrack == "Right")
+            {
+                trk = laneScale * -1;
+                StartCoroutine(switchTrk());
                 currentTrack = "Middle";
+            }
             else
+            {
+                trk = laneScale * -1;
+                StartCoroutine(switchTrk());
                 currentTrack = "Left";
+            }
         }
-        if (Input.GetButtonDown("SwitchRight") && currentTrack != "Right")
+        if (Input.GetButtonDown("SwitchRight") && currentTrack != "Right" && trk == 0)
         {
-            Debug.Log("Go right !");
             if (currentTrack == "Left")
+            {
+                trk = laneScale;
+                StartCoroutine(switchTrk());
                 currentTrack = "Middle";
+            }
             else
+            {
+                trk = laneScale;
+                StartCoroutine(switchTrk());
                 currentTrack = "Right";
+            }
         }
 
         //Make it faster over time
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            //Debug.Log("up !");
-            transform.GetComponent<Rigidbody>().AddForce(transform.forward * 1.1f);
-            timer = 5;
+            speed *= 1.1f;
+            timer = cooldown;
         }
+    }
+
+    IEnumerator switchTrk()
+    {
+        yield return new WaitForSeconds(.5f);
+        trk = 0;
+    }
+
+    IEnumerator jump()
+    {
+        yield return new WaitForSeconds(.7f);
+        jmp = laneScale * -1;
     }
 }
