@@ -15,7 +15,8 @@ public static class MoInput {
     public static void EvDuck() { Duck(); }
 }
 
-/*public class MyDemo
+/*
+public class MyDemo
 {
     void EventDo()
     {
