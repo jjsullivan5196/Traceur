@@ -9,6 +9,8 @@ public static class MoInput {
     public static event InputEvent Jump;
     public static event InputEvent Duck;
 
+	public static bool isRunning = false;
+
     public static void EvStepRight() { StepRight(); }
     public static void EvStepLeft() { StepLeft(); }
     public static void EvJump() { Jump(); }
