@@ -20,10 +20,15 @@ public class PlayerMovement : MonoBehaviour
     private float cooldown = 5;
     private float timer;
     private float speed = 4;
+    private float timerMiddle = 0;
+    private float cooldownMiddle = 3;
 
     private void Start()
     {
         timer = cooldown;
+        MoInput.StepRight += switchRight;
+        MoInput.StepLeft += switchLeft;
+        MoInput.Jump += jumpInput;
     }
 
     void Update()
@@ -37,66 +42,96 @@ public class PlayerMovement : MonoBehaviour
         //Jump !
         if (Input.GetButtonDown("Jump"))
         {
-            if (transform.position.y < 1.1f)
-            {
-                if (jmp == -5)
-                {
-                    jmp = laneScale;
-                    StartCoroutine(jump());
-                }
-            }
+            //jumpInput();
+            MoInput.EvJump();
         }
 
         //Switching tracks
         if (Input.GetButtonDown("SwitchLeft"))
         {
-            if (currentTrack != "Left")
+            //switchLeft();
+            MoInput.EvStepLeft();
+        }
+        if (Input.GetButtonDown("SwitchRight"))
+        {
+            //switchRight();
+            MoInput.EvStepRight();
+        }
+
+        //Make it faster over time
+        timer -= Time.deltaTime;
+        timerMiddle -= Time.deltaTime;
+        if (timerMiddle < 0)
+        {
+            if (currentTrack == "Left")
             {
                 if (trk == 0)
                 {
-                    if (currentTrack == "Right")
-                    {
-                        trk = laneScale * -1;
-                        StartCoroutine(switchTrk());
-                        currentTrack = "Middle";
-                    }
-                    else
-                    {
-                        trk = laneScale * -1;
-                        StartCoroutine(switchTrk());
-                        currentTrack = "Left";
-                    }
+                    trk = laneScale;
+                    StartCoroutine(switchTrk());
+                    currentTrack = "Middle";
+                }
+            }
+            else if (currentTrack == "Right")
+            {
+                if (trk == 0)
+                {
+                    trk = laneScale * -1;
+                    StartCoroutine(switchTrk());
+                    currentTrack = "Middle";
                 }
             }
         }
-        if (Input.GetButtonDown("SwitchRight"))
+        if (timer < 0)
+        {
+            speed *= 1.1f;
+            timer = cooldown;
+        }
+    }
+
+    private void switchLeft()
+    {
+        if (currentTrack != "Left")
         {
             if (currentTrack != "Right")
             {
                 if (trk == 0)
                 {
-                    if (currentTrack == "Left")
-                    {
-                        trk = laneScale;
-                        StartCoroutine(switchTrk());
-                        currentTrack = "Middle";
-                    }
-                    else
-                    {
-                        trk = laneScale;
-                        StartCoroutine(switchTrk());
-                        currentTrack = "Right";
-                    }
+                    trk = laneScale * -1;
+                    StartCoroutine(switchTrk());
+                    currentTrack = "Left";
+                    timerMiddle = cooldownMiddle;
                 }
             }
         }
+    }
 
-        //Make it faster over time
-        timer -= Time.deltaTime;
-        if (timer < 0)
+    private void switchRight()
+    {
+        if (currentTrack != "Right")
         {
-            speed *= 1.1f;
-            timer = cooldown;
+            if (currentTrack != "Left")
+            {
+                if (trk == 0)
+                {
+                    trk = laneScale;
+                    StartCoroutine(switchTrk());
+                    currentTrack = "Right";
+                    timerMiddle = cooldownMiddle;
+                }
+            }
+        }
+    }
+
+    private void jumpInput()
+    {
+        if (transform.position.y < 1.1f)
+        {
+            if (jmp == -5)
+            {
+                jmp = laneScale;
+                StartCoroutine(jump());
+            }
         }
     }
 
