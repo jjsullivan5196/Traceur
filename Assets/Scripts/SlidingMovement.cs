@@ -13,6 +13,7 @@ public class SlidingMovement : MonoBehaviour
     */
 
     private Vector3 slide;
+    private Vector3 middle;
 
     private CharacterController controller;
 
@@ -30,6 +31,8 @@ public class SlidingMovement : MonoBehaviour
 
     void Update()
     {
+        middle = new Vector3(0, transform.position.y, transform.position.z);
+
         //For the capsule...
         transform.rotation = new Quaternion(0, 0, 0, 0);
 
@@ -39,31 +42,29 @@ public class SlidingMovement : MonoBehaviour
         {
             slide.x = slideSpeed;
         }
-        if (Input.GetButton("SwitchLeft"))
+        else
         {
-            slide.x = -slideSpeed;
-        }
-        if (Input.GetButtonUp("SwitchLeft"))
-        {
-            slide.x = 0;
-        }
-
-        if (Input.GetButtonUp("SwitchRight"))
-        {
-            slide.x = 0;
+            if (Input.GetButton("SwitchLeft"))
+            {
+                slide.x = -slideSpeed;
+            }
+            else
+            {
+                slide.x = 0;
+            }
         }
 
         //Jump and gravity
-        if (!controller.isGrounded && jmp < 0)
+        if (controller.isGrounded && Input.GetButton("Jump"))
         {
-            slide.y = -4;
+            slide.y = 4;
+            jmp = 0.5f;
         }
         else
         {
-            if (Input.GetButton("Jump"))
+            if (jmp < 0)
             {
-                slide.y = 4;
-                jmp = 0.4f;
+                slide.y = -4;
             }
         }
 
