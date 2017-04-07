@@ -1,7 +1,7 @@
 ﻿/*
- Name: Brian Little
- Class: CST 306
- */
+name: Brian Little
+course: CST306
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,7 +56,7 @@ public class ScoreManager : MonoBehaviour {
 		}
 		if (col.gameObject.tag == "Multiplier") {
 			StartCoroutine ("adjustScore");
-			Destroy (col);
+			Destroy (col.gameObject);
 		}
     }
 
@@ -95,6 +95,7 @@ public class ScoreManager : MonoBehaviour {
 		float cd = 5.0f;
 		while (cd > 0) {
 			cd -= Time.deltaTime;
+            Debug.Log("Double Score");
 			multiplier = 2;
 			yield return null;
 		}
