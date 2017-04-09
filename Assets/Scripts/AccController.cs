@@ -12,6 +12,7 @@ public class AccController : MonoBehaviour {
 	public float LRThreshold = 3.0f;
 	public float UpDownThreshold = 20.0f;
 	public float ActionDecay = 1.0f;
+    public float RunDecay = 3.0f;
 	public bool Debug = false;
 	float actionTime = 0.0f;
 	float runTime = 0.0f;
@@ -37,7 +38,7 @@ public class AccController : MonoBehaviour {
 		if (acc.y >= 4 && runTime <= 0.0f)
 		{
 			MoInput.isRunning = true;
-			runTime = ActionDecay;
+			runTime = RunDecay;
 		}
 		else if(runTime <= 0.0f)
 		{

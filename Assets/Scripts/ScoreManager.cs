@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -26,23 +27,33 @@ public class ScoreManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(pntsCooldown > 0)
+        if (transform.position.z < 514)
         {
-            pntsCooldown -= Time.deltaTime;
-            //Debug.Log(pntsCooldown);
+            if (pntsCooldown > 0)
+            {
+                pntsCooldown -= Time.deltaTime;
+                //Debug.Log(pntsCooldown);
 
+            }
+            else
+            {
+                allowPoints = true;
+                GameObject.FindGameObjectWithTag("Flicker").GetComponent<Image>().enabled = false;
+            }
+
+            if (allowPoints)
+            {
+                calculateScore();
+            }
+            text.text = "Score: " + score.ToString();
         }
         else
         {
-            allowPoints = true;
-			GameObject.FindGameObjectWithTag ("Flicker").GetComponent<Image> ().enabled = false;
-        }
+            text.text = "Score: " + score.ToString() + "\nTap touchpad to restart!";
 
-		if(allowPoints)
-        {
-            calculateScore();
+            if (Input.GetMouseButtonDown(0))
+                SceneManager.LoadScene(0);
         }
-        text.text = "Score: " + score.ToString();
     }
 
     private void OnTriggerEnter(Collider col)

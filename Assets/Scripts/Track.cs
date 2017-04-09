@@ -26,7 +26,7 @@ public class Track : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		target = transform.position + transform.forward * Forward;
+		if(transform.position.z < 514 && MoInput.isRunning) target = transform.position + transform.forward * Forward;
 		target.x = cur_x;
 		target.y = cur_y;
 
@@ -77,7 +77,7 @@ public class Track : MonoBehaviour {
 					cur_x = init_x;
 					break;
 				case MoInput.Move.Down:
-					cur_y = -UpDown/10;
+					cur_y = -UpDown/4;
 					cur_x = init_x;
 					break;
 			}
