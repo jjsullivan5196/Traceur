@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+name: John Sullivan
+couse: CST306
+*/
+
+using UnityEngine;
 using System.Collections;
 
 namespace JNIAssist {
