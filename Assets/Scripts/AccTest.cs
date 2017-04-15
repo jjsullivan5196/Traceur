@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+name: John Sullivan
+couse: CST306
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,14 +19,16 @@ public class AccTest : MonoBehaviour {
 	string action = "";
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		JNMan.Init();
 		uiText = GameObject.Find("Text").GetComponent<Text>();
 		linacc = new LinearAcceleration(JNMan.Context);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		Vector3 acc = linacc.accelerationVec();
 
 		if (acc.x >= 6 && actionTime <= 0.0f)

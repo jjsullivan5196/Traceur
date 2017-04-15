@@ -1,18 +1,42 @@
-﻿using System.Collections;
+﻿/*
+name: John Sullivan
+couse: CST306
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class MoInput {
-    public delegate void InputEvent();
-    public static event InputEvent StepRight;
-    public static event InputEvent StepLeft;
-    public static event InputEvent Jump;
-    public static event InputEvent Duck;
+public static class MoInput
+{
+	public enum Move
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    };
+    public delegate void InputEvent(Move motion);
+    public static event InputEvent MotionEvent;
 
-    public static void EvStepRight() { StepRight(); }
-    public static void EvStepLeft() { StepLeft(); }
-    public static void EvJump() { Jump(); }
-    public static void EvDuck() { Duck(); }
+	public static bool isRunning = false;
+
+    public static void EvStepRight()
+    {
+        MotionEvent(Move.Right);
+    }
+    public static void EvStepLeft()
+    {
+        MotionEvent(Move.Left);
+    }
+    public static void EvJump()
+    {
+        MotionEvent(Move.Up);
+    }
+    public static void EvDuck()
+    {
+        MotionEvent(Move.Down);
+    }
 }
 
 /*public class MyDemo
