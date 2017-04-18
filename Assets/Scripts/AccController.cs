@@ -78,6 +78,7 @@ public class AccController : MonoBehaviour
                 calibrate_step = false;
                 calibrate_timer = 3.0f;
                 step_timer = 1.0f;
+                return;
             }
             else
             {
@@ -173,7 +174,8 @@ public class AccController : MonoBehaviour
 
 	void DebugUpdate()
 	{
-		uiText.text = acc.ToString();
+        uiText.text = string.Format("LR: {0} UD: {1}\n", LRThreshold, UpDownThreshold);
+		uiText.text += acc.ToString();
 		uiText.text += "\n" + action;
 		uiText.text += MoInput.isRunning ? "\nRUNNING" : "";
 	}

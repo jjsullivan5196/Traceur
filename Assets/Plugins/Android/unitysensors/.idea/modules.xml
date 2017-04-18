@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/unitysensors.iml" filepath="$PROJECT_DIR$/unitysensors.iml" />
-      <module fileurl="file://$PROJECT_DIR$/unitysensors.iml" filepath="$PROJECT_DIR$/unitysensors.iml" />
-      <module fileurl="file://$PROJECT_DIR$/usensors/usensors.iml" filepath="$PROJECT_DIR$/usensors/usensors.iml" />
       <module fileurl="file://$PROJECT_DIR$/usensors/usensors.iml" filepath="$PROJECT_DIR$/usensors/usensors.iml" />
     </modules>
   </component>
