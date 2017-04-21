@@ -13,14 +13,10 @@ using AccStuff;
 
 public class AccController : MonoBehaviour
 {
-
-	Text uiText;
+	public Text uiText;
 	LinearAcceleration linacc;
 
-	float LRThreshold;
-	float UpDownThreshold;
-
-	public float ActionDecay = 1.0f;
+	public float ActionDecay = 0.5f;
     public float RunDecay = 3.0f;
 	public bool Debug = false;
 
@@ -30,75 +26,21 @@ public class AccController : MonoBehaviour
 
 	Vector3 acc;
 
-    bool calibrate = true;
-    bool calibrate_step = true;
-    List<float> lrvalues = new List<float>();
-    List<float> udvalues = new List<float>();
-    float calibrate_timer = 3.0f;
-    float step_timer = 1.0f;
-
 	// Use this for initialization
 	void Start ()
     {
 		JNMan.Init();
-		linacc = new LinearAcceleration(JNMan.Context);
+		linacc = new LinearAcceleration();
 
 		if(Debug) {
-			uiText = GameObject.Find("Text").GetComponent<Text>();
 			MoInput.MotionEvent += HandleMotion;
 		}
-			
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        acc = linacc.accelerationVec();
-
-        if (calibrate)
-        {
-            if(calibrate_step)
-            {
-                if (calibrate_timer >= 0.0f)
-                {
-                    uiText.text = "Step right in " + calibrate_timer;
-                    calibrate_timer -= Time.deltaTime;
-                    return;
-                }
-                else if(step_timer >= 0.0f)
-                {
-                    uiText.text = "Step right NOW";
-                    lrvalues.Add(acc.x);
-                    step_timer -= Time.deltaTime;
-                    return;
-                }
-                LRThreshold = Mathf.Abs(lrvalues.Max()) > Mathf.Abs(lrvalues.Min()) ?
-                    lrvalues.Max() :
-                    lrvalues.Min();
-                calibrate_step = false;
-                calibrate_timer = 3.0f;
-                step_timer = 1.0f;
-                return;
-            }
-            else
-            {
-                if (calibrate_timer >= 0.0f)
-                {
-                    uiText.text = "Jump in " + calibrate_timer;
-                    calibrate_timer -= Time.deltaTime;
-                    return;
-                }
-                else if (step_timer >= 0.0f)
-                {
-                    uiText.text = "Jump NOW";
-                    udvalues.Add(acc.y);
-                    step_timer -= Time.deltaTime;
-                    return;
-                }
-                UpDownThreshold = udvalues.Max();
-            }
-            calibrate = false;
-        }
+        acc = (Vector3)linacc;
 
         if (acc.y >= 4 && runTime <= 0.0f)
 		{
@@ -110,23 +52,23 @@ public class AccController : MonoBehaviour
 			MoInput.isRunning = false;
 		}
 
-		if (acc.x >= LRThreshold && actionTime <= 0.0f)
+		if (acc.x >= MoInput.thresholdLR && actionTime <= 0.0f)
 		{
 			MoInput.EvStepLeft();
 			actionTime = ActionDecay;
 		}
-		else if (acc.x <= -LRThreshold && actionTime <= 0.0f)
+		else if (acc.x <= -MoInput.thresholdLR && actionTime <= 0.0f)
 		{
 			MoInput.EvStepRight();
 			actionTime = ActionDecay;
 		}
 
-		if (acc.y >= UpDownThreshold && actionTime <= 0.0f)
+		if (acc.y >= MoInput.thresholdUD && actionTime <= 0.0f)
 		{
 			MoInput.EvJump();
 			actionTime = ActionDecay;
 		}
-		else if (acc.y <= -UpDownThreshold && actionTime <= 0.0f)
+		else if (acc.y <= -MoInput.thresholdUD && actionTime <= 0.0f)
 		{
 			MoInput.EvDuck();
 			actionTime = ActionDecay;
@@ -174,7 +116,7 @@ public class AccController : MonoBehaviour
 
 	void DebugUpdate()
 	{
-        uiText.text = string.Format("LR: {0} UD: {1}\n", LRThreshold, UpDownThreshold);
+        uiText.text = string.Format("LR: {0} UD: {1}\n", MoInput.thresholdLR, MoInput.thresholdUD);
 		uiText.text += acc.ToString();
 		uiText.text += "\n" + action;
 		uiText.text += MoInput.isRunning ? "\nRUNNING" : "";

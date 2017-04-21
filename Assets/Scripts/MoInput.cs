@@ -21,6 +21,9 @@ public static class MoInput
 
 	public static bool isRunning = false;
 
+    public static float thresholdUD = 0.0f;
+    public static float thresholdLR = 0.0f;
+
     public static void EvStepRight()
     {
         MotionEvent(Move.Right);

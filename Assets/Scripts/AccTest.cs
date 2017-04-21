@@ -21,9 +21,8 @@ public class AccTest : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		JNMan.Init();
 		uiText = GameObject.Find("Text").GetComponent<Text>();
-		linacc = new LinearAcceleration(JNMan.Context);
+		linacc = new LinearAcceleration();
 	}
 	
 	// Update is called once per frame
