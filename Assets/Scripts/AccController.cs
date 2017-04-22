@@ -14,7 +14,6 @@ using AccStuff;
 public class AccController : MonoBehaviour
 {
 	public Text uiText;
-	LinearAcceleration linacc;
 
 	public float ActionDecay = 0.5f;
     public float RunDecay = 3.0f;
@@ -30,7 +29,6 @@ public class AccController : MonoBehaviour
 	void Start ()
     {
 		JNMan.Init();
-		linacc = new LinearAcceleration();
 
 		if(Debug) {
 			MoInput.MotionEvent += HandleMotion;
@@ -40,7 +38,7 @@ public class AccController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        acc = (Vector3)linacc;
+        acc = (Vector3)MoInput.imu;
 
         if (acc.y >= 4 && runTime <= 0.0f)
 		{
@@ -68,11 +66,13 @@ public class AccController : MonoBehaviour
 			MoInput.EvJump();
 			actionTime = ActionDecay;
 		}
-		else if (acc.y <= -MoInput.thresholdUD && actionTime <= 0.0f)
+		/*
+        else if (acc.y <= -MoInput.thresholdUD && actionTime <= 0.0f)
 		{
 			MoInput.EvDuck();
 			actionTime = ActionDecay;
 		}
+        */
 		
 		if (actionTime > 0.0f)
 		{
