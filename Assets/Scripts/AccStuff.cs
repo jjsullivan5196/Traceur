@@ -5,7 +5,10 @@ couse: CST306
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
+using JNIAssist;
+using System.Threading;
 
 namespace AccStuff
 {
@@ -13,9 +16,9 @@ namespace AccStuff
     {
 		private AndroidJavaObject sensor;
 
-		public LinearAcceleration(AndroidJavaObject context)
+		public LinearAcceleration()
         {
-			sensor = new AndroidJavaObject("hci.csumb.edu.usensors.linearAcceleration", context);
+			sensor = new AndroidJavaObject("hci.csumb.edu.usensors.linearAcceleration", JNMan.Context);
 		}
 
 		public Vector3 accelerationVec()
@@ -29,15 +32,20 @@ namespace AccStuff
 			float[] acc = sensor.Call<float[]>("getAcceleration");
 			return new float[] {acc[1], acc[0], acc[2]};
 		}
+
+        public static implicit operator Vector3(LinearAcceleration l)
+        {
+            return l.accelerationVec();
+        }
 	}
 
 	public class rotationVector
     {
 		private AndroidJavaObject sensor;
 
-		public rotationVector(AndroidJavaObject context)
+		public rotationVector()
         {
-			sensor = new AndroidJavaObject("hci.csumb.edu.usensors.rotationVector", context);
+			sensor = new AndroidJavaObject("hci.csumb.edu.usensors.rotationVector", JNMan.Context);
 		}
 
 		public Quaternion rotationVec()
@@ -95,7 +103,7 @@ namespace AccStuff
     {
 		private kalman_filter[] facc;
 
-		public filtered_acceleration(AndroidJavaObject context) : base(context)
+		public filtered_acceleration() : base()
         {
 			facc = new kalman_filter[] {new kalman_filter(), new kalman_filter(), new kalman_filter()};
 		}

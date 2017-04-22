@@ -6,6 +6,8 @@ couse: CST306
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AccStuff;
+using JNIAssist;
 
 public static class MoInput
 {
@@ -20,6 +22,11 @@ public static class MoInput
     public static event InputEvent MotionEvent;
 
 	public static bool isRunning = false;
+
+    public static float thresholdUD = 0.0f;
+    public static float thresholdLR = 0.0f;
+
+    public static readonly LinearAcceleration imu = new LinearAcceleration();
 
     public static void EvStepRight()
     {

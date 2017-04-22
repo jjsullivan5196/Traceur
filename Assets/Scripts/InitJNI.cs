@@ -22,11 +22,17 @@ namespace JNIAssist {
 		}
 
 		public static AndroidJavaClass Activity {
-			get { return activityClass; }
+			get {
+                Init();
+                return activityClass;
+            }
 		}
 
 		public static AndroidJavaObject Context {
-			get { return activityContext; }
+			get {
+                Init();
+                return activityContext;
+            }
 		}
 	}
 	
