@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MotionControl : MonoBehaviour
 {
@@ -117,7 +118,7 @@ public class MotionControl : MonoBehaviour
                     }
                 case State.calcJump:
                     {
-                        GetComponent<AccController>().enabled = true;
+                        SceneManager.LoadScene("test_level");
                         enabled = false;
                         break;
                     }

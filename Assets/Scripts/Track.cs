@@ -28,18 +28,19 @@ public class Track : MonoBehaviour {
 
 		MoInput.MotionEvent += HandleMotion;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(transform.position.z < 514 /*&& MoInput.isRunning*/) target = transform.position + transform.forward * Forward;
-		target.x = cur_x;
-		target.y = cur_y;
 
-		if(Input.GetButtonDown("SwitchLeft"))
-		{
-			MoInput.EvStepLeft();
+    // Update is called once per frame
+    void Update()
+    {
+        if (transform.position.z < 700 && MoInput.isRunning) target = transform.position + transform.forward * Forward;
+        target.x = cur_x;
+        target.y = cur_y;
+
+        if(Input.GetButtonDown("SwitchLeft"))
+        {
+            MoInput.EvStepLeft();
 		}
-		else if(Input.GetButtonDown("SwitchRight"))
+		if(Input.GetButtonDown("SwitchRight"))
 		{
 			MoInput.EvStepRight();
 		}
@@ -65,6 +66,7 @@ public class Track : MonoBehaviour {
 
 	void HandleMotion(MoInput.Move m)
 	{
+        Debug.Log("Move!");
 		if(cooldown <= 0.0f)
 		{
 			switch(m)

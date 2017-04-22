@@ -40,7 +40,7 @@ public class AccController : MonoBehaviour
     {
         acc = (Vector3)MoInput.imu;
 
-        if (acc.y >= 4 && runTime <= 0.0f)
+        if (acc.y >= 2 && runTime <= 0.0f)
 		{
 			MoInput.isRunning = true;
 			runTime = RunDecay;
