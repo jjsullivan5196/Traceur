@@ -23,7 +23,8 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		tScore = GameObject.FindGameObjectWithTag ("ScoreLabel").GetComponent<Text>();
+        
+        tScore = GameObject.FindGameObjectWithTag ("ScoreLabel").GetComponent<Text>();
         //encouragement = GameObject.FindGameObjectWithTag("Encouragement").GetComponent<Text>();
         allowPoints = true;
         encouragement = false;
@@ -34,6 +35,18 @@ public class ScoreManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        GameManager GMscript = GameObject.Find("Player").GetComponent<GameManager>();
+        int difficulty = GMscript.getDif();
+
+        if(difficulty == 2)
+        {
+            multiplier = 2;
+        }
+        else if(difficulty == 3)
+        {
+            multiplier = 3;
+        }
+
         if (transform.position.z < 514)
         {
  
@@ -43,7 +56,7 @@ public class ScoreManager : MonoBehaviour {
                 gameObject.GetComponent<CapsuleCollider>().enabled = false;
                 encouragement = true;
                 invCooldown -= Time.deltaTime;
-                Debug.Log("Invulnerable");
+                //Debug.Log("Invulnerable");
             }
             else
             {
@@ -99,7 +112,7 @@ public class ScoreManager : MonoBehaviour {
                 pntsCooldown = 5.0f;
                 GameObject.FindGameObjectWithTag("Flicker").GetComponent<Image>().enabled = true;
                 StartCoroutine("blink");
-                Debug.Log("Begin Flickering");
+                //Debug.Log("Begin Flickering");
             }
 	        //Debug.Log(cooldown);
 		}
@@ -112,7 +125,7 @@ public class ScoreManager : MonoBehaviour {
 
         if(col.gameObject.tag == "DodgeCheck")
         {
-            Debug.Log("HIT");
+            //Debug.Log("HIT");
             invCooldown = 1.0f;
         }
     }
@@ -134,7 +147,7 @@ public class ScoreManager : MonoBehaviour {
 		float cd = 5.0f;
 		float blinkInterval = .5f;
 		while (cd > 0) {
-			Debug.Log (blinkInterval);
+			//Debug.Log (blinkInterval);
 			cd -= Time.deltaTime;
 			blinkInterval -= Time.deltaTime;
 
@@ -156,18 +169,9 @@ public class ScoreManager : MonoBehaviour {
 		while (cd > 0) {
 			cd -= Time.deltaTime;
             Debug.Log("Double Score");
-			multiplier = 2;
+			multiplier *= 2;
 			yield return null;
 		}
 		multiplier = 1;
 	}
-
-    private IEnumerator invulnerable()
-    {
-        while(true)
-        {
-            //Maybe use this...
-            yield return null;
-        }
-    }
 }
