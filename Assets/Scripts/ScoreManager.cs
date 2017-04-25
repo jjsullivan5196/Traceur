@@ -106,6 +106,7 @@ public class ScoreManager : MonoBehaviour {
     {
 		if(col.gameObject.tag == "Enemy")
         {
+            Debug.Log("HIT");
             if(!flicker)
             {
                 allowPoints = false;
