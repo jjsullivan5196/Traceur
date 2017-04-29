@@ -3,11 +3,10 @@ name: John Sullivan
 couse: CST306
 */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Track : MonoBehaviour {
+public class Track : MonoBehaviour
+{
 	float init_x;
 	float init_y;
 	float cur_x;
@@ -20,7 +19,8 @@ public class Track : MonoBehaviour {
 	float cooldown;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		init_x = transform.position.x;
 		init_y = transform.position.y;
 		cur_x = init_x;
@@ -32,7 +32,7 @@ public class Track : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < 700 /*&& MoInput.isRunning*/) target = transform.position + transform.forward * Forward;
+        if (transform.position.z < 700 && MoInput.isRunning) target = transform.position + transform.forward * Forward;
         target.x = cur_x;
         target.y = cur_y;
 
@@ -53,40 +53,49 @@ public class Track : MonoBehaviour {
 			MoInput.EvDuck();
 		}
 
-		if(cooldown > 0.0f)
-			cooldown -= Time.deltaTime;
-		else if(cooldown <= 0.0f)
-		{
-			cur_x = init_x;
-			cur_y = init_y;
-		}
+        if (cooldown > 0.0f)
+        {
+            cooldown -= Time.deltaTime;
+        }
+        else if (cooldown <= 0.0f)
+        {
+            cur_x = init_x;
+            cur_y = init_y;
+        }
 
 		transform.position = Vector3.Lerp(transform.position, target, 4.0f * Time.deltaTime);
 	}
 
 	void HandleMotion(MoInput.Move m)
 	{
-        Debug.Log("Move!");
 		if(cooldown <= 0.0f)
 		{
 			switch(m)
 			{
 				case MoInput.Move.Left:
-					cur_x = -LeftRight;
-					cur_y = init_y;
-					break;
+                    {
+                        cur_x = -LeftRight;
+                        cur_y = init_y;
+                        break;
+                    }
 				case MoInput.Move.Right:
-					cur_x = LeftRight;
-					cur_y = init_y;
-					break;
+                    {
+                        cur_x = LeftRight;
+                        cur_y = init_y;
+                        break;
+                    }
 				case MoInput.Move.Up:
-					cur_y = UpDown;
-					cur_x = init_x;
-					break;
+                    {
+                        cur_y = UpDown;
+                        cur_x = init_x;
+                        break;
+                    }
 				case MoInput.Move.Down:
-					cur_y = -UpDown/4;
-					cur_x = init_x;
-					break;
+                    {
+                        cur_y = -UpDown / 4;
+                        cur_x = init_x;
+                        break;
+                    }
 			}
 
 			cooldown = TimeCooldown;
