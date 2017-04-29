@@ -1,18 +1,15 @@
 package hci.csumb.edu.usensors;
 
-/**
- * Created by student on 6/15/16.
- */
+/*
+name: John Sullivan
+course: CST306
+*/
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 public class rotationVector implements SensorEventListener {
     private SensorManager mSensorManager;
