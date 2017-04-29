@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+    
         tScore = GameObject.FindGameObjectWithTag ("ScoreLabel").GetComponent<Text>();
         //encouragement = GameObject.FindGameObjectWithTag("Encouragement").GetComponent<Text>();
         allowPoints = true;
@@ -35,17 +35,12 @@ public class ScoreManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //Gets difficulty from another GameManager script
         GameManager GMscript = GameObject.Find("Player").GetComponent<GameManager>();
         int difficulty = GMscript.getDif();
 
-        if(difficulty == 2)
-        {
-            multiplier = 2;
-        }
-        else if(difficulty == 3)
-        {
-            multiplier = 3;
-        }
+        manageMultiplier(difficulty);
 
         if (transform.position.z < 700)
         {
@@ -90,6 +85,8 @@ public class ScoreManager : MonoBehaviour {
             {
                 tScore.text = "Score: " + score.ToString() + "\nGood Dodge!";
             }
+
+            Debug.Log("Multiplier" + multiplier);
         }
 
         else
@@ -127,7 +124,7 @@ public class ScoreManager : MonoBehaviour {
         if(col.gameObject.tag == "DodgeCheck")
         {
             //Debug.Log("HIT");
-            invCooldown = 1.0f;
+            invCooldown = 0.5f;
         }
     }
 
@@ -141,8 +138,20 @@ public class ScoreManager : MonoBehaviour {
         }
     }
 
-	//Coroutine allows screen to blink once every .5 seconds
-	private IEnumerator blink()
+    private void manageMultiplier(int difficulty)
+    {
+        if (difficulty == 2)
+        {
+            multiplier = 2;
+        }
+        else if (difficulty == 3)
+        {
+            multiplier = 3;
+        }
+    }
+
+    //Coroutine allows screen to blink once every .5 seconds
+    private IEnumerator blink()
 	{
         flicker = true;
 		float cd = 5.0f;
@@ -167,12 +176,13 @@ public class ScoreManager : MonoBehaviour {
 	private IEnumerator adjustScore()
 	{
 		float cd = 5.0f;
+        int initMult = multiplier;
 		while (cd > 0) {
 			cd -= Time.deltaTime;
             Debug.Log("Double Score");
-			multiplier *= 2;
+			multiplier = 2 * initMult;
 			yield return null;
 		}
-		multiplier = 1;
+		multiplier = initMult;
 	}
 }
