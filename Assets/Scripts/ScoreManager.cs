@@ -37,8 +37,7 @@ public class ScoreManager : MonoBehaviour {
 	void Update () {
 
         //Gets difficulty from another GameManager script
-        GameManager GMscript = GameObject.Find("Player").GetComponent<GameManager>();
-        int difficulty = GMscript.getDif();
+        int difficulty = GameManager.getDif();
 
         manageMultiplier(difficulty);
 

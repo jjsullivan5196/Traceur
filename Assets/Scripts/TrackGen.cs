@@ -12,8 +12,6 @@ using UnityEngine;
 
 public class TrackGen : MonoBehaviour
 {
-    public int difficulty = 1;
-
     public GameObject track;
     public GameObject[] tracks;
 
@@ -48,7 +46,7 @@ public class TrackGen : MonoBehaviour
 
     private void spawnTile()
     {
-        if (difficulty == 0)
+        if (GameManager.getDif() <= 1)
         {
             if (count == 4)
             {
@@ -68,7 +66,7 @@ public class TrackGen : MonoBehaviour
         }
         else
         {
-            if (difficulty == 1)
+            if (GameManager.getDif() > 1)
             {
                 if (count == 3)
                 {

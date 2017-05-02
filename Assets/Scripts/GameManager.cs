@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             timer = initTimer;
-            if(difficulty != 1 || !dynDif)
+            if(difficulty != 1 && dynDif)
             {
                 difficulty--;
             }
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
         }
     }//end function
 
-    public int getDif()
+    public static int getDif()
     {
         return difficulty;
     }

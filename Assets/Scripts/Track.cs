@@ -15,6 +15,7 @@ public class Track : MonoBehaviour
 	public float LeftRight = 2.0f;
 	public float Forward = 2.0f;
 	public float TimeCooldown = 1.0f;
+	public bool Debug = false;
 	Vector3 target;
 	float cooldown;
 
@@ -32,7 +33,20 @@ public class Track : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < 700 && MoInput.isRunning) target = transform.position + transform.forward * Forward;
+		if(!Debug)
+		{
+        	if (transform.position.z < 700 && MoInput.isRunning) 
+			{ 
+				target = transform.position + transform.forward * Forward;
+			}
+		}
+		else
+		{
+			if (transform.position.z < 700)
+			{ 
+				target = transform.position + transform.forward * Forward;
+			}
+		}
         target.x = cur_x;
         target.y = cur_y;
 
