@@ -3,13 +3,9 @@ name: John Sullivan
 couse: CST306
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using JNIAssist;
-using AccStuff;
 
 public class AccController : MonoBehaviour
 {
@@ -30,7 +26,8 @@ public class AccController : MonoBehaviour
     {
 		JNMan.Init();
 
-		if(Debug) {
+		if(Debug)
+        {
 			MoInput.MotionEvent += HandleMotion;
 		}
 	}
@@ -38,7 +35,7 @@ public class AccController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        acc = (Vector3)MoInput.imu;
+        acc = MoInput.imu;
 
         if (acc.y >= 2 && runTime <= 0.0f)
 		{
@@ -66,13 +63,6 @@ public class AccController : MonoBehaviour
 			MoInput.EvJump();
 			actionTime = ActionDecay;
 		}
-		/*
-        else if (acc.y <= -MoInput.thresholdUD && actionTime <= 0.0f)
-		{
-			MoInput.EvDuck();
-			actionTime = ActionDecay;
-		}
-        */
 		
 		if (actionTime > 0.0f)
 		{
@@ -83,8 +73,10 @@ public class AccController : MonoBehaviour
 			runTime -= Time.deltaTime;
 		}
 
-		if(Debug)
-			DebugUpdate();
+        if (Debug)
+        {
+            DebugUpdate();
+        }
 	}
 
 	void HandleMotion(MoInput.Move motion)

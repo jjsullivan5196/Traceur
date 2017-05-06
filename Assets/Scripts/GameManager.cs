@@ -13,30 +13,45 @@ public class GameManager : MonoBehaviour {
     public static int lives;
     //1 for Easy; 2 for Medium; 3 for Hard.
     private static int difficulty;
+    public bool dynDif;
     public float initTimer;
     private float timer;
 
 	//Use this for initialization
 	void Start () {
-        difficulty = 1;
-        lives = 3;
+        //Set default
+        if(lives == 0)
+        {
+            lives = 3;
+        }
+        if (initTimer == 0)
+        {
+            initTimer = 15;
+        }
+        if(difficulty == 0)
+        {
+            difficulty = 1;
+        }
         timer = initTimer;
 	}//end function
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Time: " + timer + " Difficulty: " + difficulty);
-        timer -= Time.deltaTime;
-        if(timer <= 0 && difficulty != 3)
+        //Debug.Log("Time: " + timer + " Difficulty: " + difficulty);
+        if (dynDif)
         {
-            difficulty++;
-            timer = initTimer;
-            Debug.Log(difficulty);
-        }
-        if(lives <= 0)
-        {
-            //End the game(Implement later)
-            Debug.Log("Game Over");
+            timer -= Time.deltaTime;
+            if (timer <= 0 && difficulty != 3)
+            {
+                difficulty++;
+                timer = initTimer;
+                Debug.Log("Difficulty: " + difficulty);
+            }
+            if (lives <= 0)
+            {
+                //End the game(Implement later)
+                Debug.Log("Game Over");
+            }
         }
 	}//end function
 
@@ -45,7 +60,7 @@ public class GameManager : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             timer = initTimer;
-            if(difficulty != 1)
+            if(difficulty != 1 && dynDif)
             {
                 difficulty--;
             }
@@ -78,7 +93,7 @@ public class GameManager : MonoBehaviour {
         }
     }//end function
 
-    public int getDif()
+    public static int getDif()
     {
         return difficulty;
     }
@@ -86,5 +101,15 @@ public class GameManager : MonoBehaviour {
     public int getLives()
     {
         return lives;
+    }
+    
+    public void setDif(int dif)
+    {
+        difficulty = dif;
+    }
+
+    public void setDynDif(bool d)
+    {
+        dynDif = d;
     }
 }//end class
