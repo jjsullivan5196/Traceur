@@ -27,6 +27,7 @@ public class ScoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		source = GetComponent<AudioSource> ();
+        source.clip = impact;
         //encouragement = GameObject.FindGameObjectWithTag("Encouragement").GetComponent<Text>();
         allowPoints = true;
         encouragement = false;
