@@ -4,18 +4,16 @@ couse: CST306
 */
 
 using UnityEngine;
+using System.Collections;
 
-namespace JNIAssist
-{
+namespace JNIAssist {
 	
-	public static class JNMan
-    {
+	public static class JNMan {
 		private static AndroidJavaClass activityClass;
 		private static AndroidJavaObject activityContext;
 		private static bool initialized = false;
 
-		public static void Init()
-        {
+		public static void Init() {
 			if (!initialized)
 			{
 				activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -23,19 +21,15 @@ namespace JNIAssist
 			}
 		}
 
-		public static AndroidJavaClass Activity
-        {
-			get
-            {
+		public static AndroidJavaClass Activity {
+			get {
                 Init();
                 return activityClass;
             }
 		}
 
-		public static AndroidJavaObject Context
-        {
-			get
-            {
+		public static AndroidJavaObject Context {
+			get {
                 Init();
                 return activityContext;
             }

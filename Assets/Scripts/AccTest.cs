@@ -3,12 +3,14 @@ name: John Sullivan
 couse: CST306
 */
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using JNIAssist;
 using AccStuff;
 
-public class AccTest : MonoBehaviour
-{
+public class AccTest : MonoBehaviour {
 
 	Text uiText;
 	LinearAcceleration linacc;
