@@ -26,7 +26,7 @@ public static class MoInput
     public static float thresholdUD = 0.0f;
     public static float thresholdLR = 0.0f;
 
-    public static readonly LinearAcceleration imu;// = new LinearAcceleration();
+    public static readonly LinearAcceleration imu = new LinearAcceleration();
 
     public static void EvStepRight()
     {
@@ -44,6 +44,8 @@ public static class MoInput
     {
         MotionEvent(Move.Down);
     }
+
+    public static string lastScene;
 }
 
 /*public class MyDemo

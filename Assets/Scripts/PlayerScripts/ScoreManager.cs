@@ -80,7 +80,7 @@ public class ScoreManager : MonoBehaviour {
 			gameOver = true;
             if (Input.GetMouseButtonDown(0))
             {
-                SceneManager.LoadScene("test_level");
+                SceneManager.LoadScene("menu2");
             }
         }
     }

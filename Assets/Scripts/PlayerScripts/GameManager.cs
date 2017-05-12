@@ -11,10 +11,11 @@ public class GameManager : MonoBehaviour {
 
     private static int lives;
 	public float initTimer;
-	public bool dynamicDif;
+	public static bool dynamicDif = false;
+    public static int mode = 0;
 
     //1 for Easy; 2 for Medium; 3 for Hard.
-    private static int difficulty;
+    private static int difficulty = 1;
     private float timer;
 
 	void Start () {
