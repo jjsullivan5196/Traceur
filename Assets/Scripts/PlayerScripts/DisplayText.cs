@@ -10,10 +10,10 @@ using UnityEngine;
 
 public class DisplayText : MonoBehaviour {
 
-	private Text tScore;
+	private TextMesh tScore;
 	// Use this for initialization
 	void Start () {
-		tScore = GameObject.FindGameObjectWithTag ("ScoreLabel").GetComponent<Text>();
+		tScore = GameObject.FindGameObjectWithTag ("ScoreLabel").GetComponent<TextMesh>();
 	}
 	
 	// Update is called once per frame

@@ -66,13 +66,6 @@ public class AccController : MonoBehaviour
 			MoInput.EvJump();
 			actionTime = ActionDecay;
 		}
-		/*
-        else if (acc.y <= -MoInput.thresholdUD && actionTime <= 0.0f)
-		{
-			MoInput.EvDuck();
-			actionTime = ActionDecay;
-		}
-        */
 		
 		if (actionTime > 0.0f)
 		{

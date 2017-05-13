@@ -12,74 +12,92 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour {
-    public Canvas PlayMenu;
-    public Canvas OptionMenu;
+public class Menu : MonoBehaviour
+{
+    public GameObject MainMenu;
+    public GameObject OptionMenu;
+    public GameObject PlayMenu;
 
-    public Button Play;
-    public Button Option;
-    public Button Quit;
-    public Button Live;
-    public Button Distance;
+    public Text Difficulty;
 
-    private void Start()
+    public void Start()
     {
-        PlayMenu = PlayMenu.GetComponent<Canvas>();
-        Play = Play.GetComponent<Button>();
-        Quit = Quit.GetComponent<Button>();
-        Live = Live.GetComponent<Button>();
-        Distance = Distance.GetComponent<Button>();
-        PlayMenu.enabled = false;
-        OptionMenu.enabled = false;
+        MainMenu.SetActive(true);
+        OptionMenu.SetActive(false);
+        PlayMenu.SetActive(false);
+        Difficulty.text = "";
     }
 
-    public void clickOnPlay()
+    public void StartLive()
     {
-        PlayMenu.enabled = true;
-        Play.enabled = false;
-        Option.enabled = false;
-        Quit.enabled = false;
+        //Put the scene in the build settings, and just put the name of the scene 
+        //in parameter of this function
+        Debug.Log("Live");
+        SceneManager.LoadScene("trackGeneration");
     }
 
-    public void clickOnOption()
+    public void StartDistance()
     {
-        OptionMenu.enabled = true;
-        Play.enabled = false;
-        Option.enabled = false;
-        Quit.enabled = false;
+        //Put the scene in the build settings, and just put the name of the scene 
+        //in parameter of this function
+        Debug.Log("Distance");
+        SceneManager.LoadScene("trackGeneration");
     }
 
-    public void clickOnBackPlay()
+    public void Calibrate()
     {
-        PlayMenu.enabled = false;
-        Play.enabled = true;
-        Option.enabled = true;
-        Quit.enabled = true;
+        //Put the calibrate scene here
+        SceneManager.LoadScene("");
     }
 
-    public void clickOnBackOption()
+    public void ActivateSettings()
     {
-        Debug.Log("BackOption");
-        OptionMenu.enabled = false;
-        Play.enabled = true;
-        Option.enabled = true;
-        Quit.enabled = true;
+        MainMenu.SetActive(false);
+        OptionMenu.SetActive(true);
     }
 
-    public void clickOnExit()
+    public void ActivatePlay()
     {
+        MainMenu.SetActive(false);
+        PlayMenu.SetActive(true);
+    }
+
+    public void BackPlay()
+    {
+        MainMenu.SetActive(true);
+        PlayMenu.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Close game.");
         Application.Quit();
     }
 
-    public void clickOnLive()
+    public void Back()
     {
-        //LaunchSceneLive
-        Debug.Log("Launch Scene Live");
+        MainMenu.SetActive(true);
+        OptionMenu.SetActive(false);
     }
 
-    public void clickOnDistance()
+    public void setOne()
     {
-        //LaunchSceneDistance
-        Debug.Log("Launch Scene Distance");
+        //Put the line of code to set the difficulty
+        Debug.Log("Difficulty = 1");
+        Difficulty.text = ": 1";
+    }
+
+    public void setTwo()
+    {
+        //Put the line of code to set the difficulty
+        Debug.Log("Difficulty = 2");
+        Difficulty.text = ": 2";
+    }
+
+    public void setThree()
+    {
+        //Put the line of code to set the difficulty
+        Debug.Log("Difficulty = 3");
+        Difficulty.text = ": 3";
     }
 }
