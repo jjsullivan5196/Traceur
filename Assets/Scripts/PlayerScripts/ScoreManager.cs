@@ -27,8 +27,6 @@ public class ScoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		source = GetComponent<AudioSource> ();
-        source.clip = impact;
-        //encouragement = GameObject.FindGameObjectWithTag("Encouragement").GetComponent<Text>();
         allowPoints = true;
         encouragement = false;
         invuln = false;
@@ -80,7 +78,7 @@ public class ScoreManager : MonoBehaviour {
 			gameOver = true;
             if (Input.GetMouseButtonDown(0))
             {
-                SceneManager.LoadScene("menu2");
+                SceneManager.LoadScene("test_level");
             }
         }
     }
@@ -96,6 +94,12 @@ public class ScoreManager : MonoBehaviour {
                 allowPoints = false;
 				invuln = true;
                 pntsCooldown = 5.0f;
+				if (GameManager.getLives () != 0) {
+					GameManager.setLives (GameManager.getLives () - 1);
+				}
+				if(GameManager.getDif() != 1) {
+					GameManager.setDif (GameManager.getDif() - 1);
+				}
             }
 		}
 
@@ -107,7 +111,6 @@ public class ScoreManager : MonoBehaviour {
 
         if(col.gameObject.tag == "DodgeCheck")
         {
-            //Debug.Log("HIT");
             invCooldown = 1.0f;
         }
     }

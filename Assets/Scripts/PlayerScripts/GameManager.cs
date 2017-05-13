@@ -19,13 +19,13 @@ public class GameManager : MonoBehaviour {
     private float timer;
 
 	void Start () {
-        difficulty = 1;
+        //difficulty = 1;
         lives = 3;
         timer = initTimer;
 	}
 
 	void Update () {
-		
+
         timer -= Time.deltaTime;
         if(timer <= 0 && difficulty != 3 && dynamicDif)
         {
@@ -41,21 +41,9 @@ public class GameManager : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy") {
-			if (ScoreManager.getInvuln() == false) {
-				timer = initTimer;
-				if (difficulty != 1) {
-					difficulty--;
-				}
-				lives--;
-			}
-        }
-
-        if(other.tag == "Life") {
-            if(lives < 3){
-                lives++;
-            }
-        }
+		if (other.gameObject.tag == "Enemy") {
+			timer = initTimer;
+		}
 
     }//end function
 
@@ -72,4 +60,9 @@ public class GameManager : MonoBehaviour {
     {
         return lives;
     }
+
+	public static void setLives(int L){
+		lives = L;
+	}
+		
 }//end class
