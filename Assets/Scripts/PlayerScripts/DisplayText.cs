@@ -18,14 +18,16 @@ public class DisplayText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        tScore.text = "";
 		if (GameManager.getDif () == 1) {
-			tScore.text = "Difficulty: Easy";
+			tScore.text += "Difficulty: Easy";
 		} else if (GameManager.getDif () == 2) {
-			tScore.text = "Difficulty: Medium";
+			tScore.text += "Difficulty: Medium";
 		} else if (GameManager.getDif () == 3) {
-			tScore.text = "Difficulty: Hard";
+			tScore.text += "Difficulty: Hard";
 		}
-		tScore.text += "\nLives: " + GameManager.getLives() + "\nScore: " + ScoreManager.getScore();
+        if (GameManager.mode == 1) tScore.text += "\nLives: " + GameManager.getLives();
+        tScore.text += "\nScore: " + ScoreManager.getScore();
 
 		if(ScoreManager.isGameOver()){
 			tScore.text = "Final Score: " + ScoreManager.getScore() + "\nTap touchpad to restart!";

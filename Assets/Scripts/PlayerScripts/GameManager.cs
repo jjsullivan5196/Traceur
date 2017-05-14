@@ -6,6 +6,7 @@ course: CST306
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	public float initTimer;
 	public static bool dynamicDif = false;
     public static int mode = 0;
+    public static bool pause = false;
+    public GameObject pauseMenu;
 
     //1 for Easy; 2 for Medium; 3 for Hard.
     private static int difficulty = 1;
@@ -33,9 +36,13 @@ public class GameManager : MonoBehaviour {
             timer = initTimer;
             Debug.Log(difficulty);
         }
-        if(lives <= 0)
+        if(lives <= 0 && mode == 1)
         {
 			ScoreManager.setGameOver(true);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            SceneManager.LoadScene("menu2");
         }
 	}//end function
 

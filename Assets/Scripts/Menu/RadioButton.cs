@@ -15,7 +15,8 @@ public class RadioButton : MonoBehaviour {
         DIFFICULTY,
         SCALE,
         MODE,
-        ACTION
+        ACTION,
+        PAUSE
     }
 
     public RadioSelect group;
@@ -59,6 +60,11 @@ public class RadioButton : MonoBehaviour {
             case ButtonType.ACTION:
                 {
                     OnSelect = Action;
+                    break;
+                }
+            case ButtonType.PAUSE:
+                {
+                    OnSelect = Pause;
                     break;
                 }
         }
@@ -111,7 +117,7 @@ public class RadioButton : MonoBehaviour {
 
     public void ChangeScaling()
     {
-        GameManager.dynamicDif = id > 1 ? true : false;
+        GameManager.dynamicDif = id == 1 ? true : false;
     }
 
     public void ChangeMode()
@@ -129,6 +135,20 @@ public class RadioButton : MonoBehaviour {
             case 1:
                 MoInput.lastScene = "menu2";
                 SceneManager.LoadScene("ncalibrate");
+                break;
+        }
+    }
+
+    public void Pause()
+    {
+        GameManager.pause = false;
+        Destroy(GameObject.Find("PauseMenu"));
+        switch (id)
+        {
+            case 0:
+                break;
+            case 1:
+                SceneManager.LoadScene("menu2");
                 break;
         }
     }
